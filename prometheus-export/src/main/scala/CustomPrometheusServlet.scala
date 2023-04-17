@@ -1,6 +1,8 @@
 package org.apache.spark.metrics.sink
 
 import java.util.Properties
+import scala.collection.immutable.ListMap
+
 import com.codahale.metrics.MetricRegistry
 import javax.servlet.http.HttpServletRequest
 import com.codahale.metrics.Gauge
@@ -14,10 +16,8 @@ import com.codahale.metrics.Timer
   * https://github.com/apache/spark/blob/master/core/src/main/scala/org/apache/spark/metrics/sink/PrometheusServlet.scala
   * for details on the parent class implementation.
   *
-  * Without any overridden methods this class behaves like the parent class. To
-  * implement custom export logic, the `getMetricsSnapshot` method must be
-  * overridden. The returned string will be returned in the configured
-  * prometheus endpoint and should thus represent valid prometheus metrics.
+  * This implementation tries to follow the Prometheus spec and best practices
+  * as defined in https://prometheus.io/docs/instrumenting/exposition_formats/
   *
   * The PrometheusServlet class can only be overridden by classes in the
   * `org.apache.spark` package. This is definitely not recommended practice when
@@ -29,178 +29,195 @@ import com.codahale.metrics.Timer
 class CustomPrometheusServlet(properties: Properties, registry: MetricRegistry)
     extends PrometheusServlet(properties, registry) {
 
+  import CustomPrometheusServlet._
+
   override def getMetricsSnapshot(request: HttpServletRequest): String = {
     import scala.collection.JavaConverters._
 
-    val countersLabel = """{type="counters"}"""
-    val metersLabel = countersLabel
-    val histogramslabels = """{type="histograms"}"""
-    val timersLabels = """{type="timers"}"""
-
     val sb = new StringBuilder()
-    registry
+    val metrics = registry
       .getMetrics()
       .entrySet()
       .iterator()
       .asScala
-      .foreach(kv => {
+      .map(kv => {
         val value = kv.getValue
         value match {
           case c: Counter => {
-            appendCounterMetric(sb, kv.getKey, c)
-          }
-          case m: Meter => {
-            appendMeterMetric(sb, kv.getKey, m)
-          }
-          case h: Histogram => {
-            appendHistogramMetric(sb, kv.getKey, h)
-          }
-          case t: Timer => {
-            appendTimerMetric(sb, kv.getKey, t)
+            formatCounter(kv.getKey, c)
           }
           case g: Gauge[_] => {
-            appendGaugeMetrics(sb, kv.getKey, g)
+            formatGauge(kv.getKey, g)
           }
-          case _ => {
-            // do nothing, maybe debug log something?
+          case m: Meter => {
+            formatMeter(kv.getKey, m)
+          }
+          case h: Histogram => {
+            formatHistogram(kv.getKey, h)
+          }
+          case t: Timer => {
+            formatTimer(kv.getKey, t)
           }
         }
       })
 
+    groupMetricValues(metrics).foreach(group => {
+      val ((key, metricType), values) = group
+      if (metricType != "untyped") {
+        sb.append(s"# TYPE ${key} ${metricType}\n")
+      }
+      values.foreach(v => sb.append(s"${v}"))
+      sb.append("\n")
+    })
+
     sb.toString()
   }
 
-  /** Append a Gauge metric to the Prometheus metric string
+  /** Group the metric values by the name and type, and return a map of the
+    * metric name and type to a list of values concatenated together.
+    *
+    * Any metrics with an empty name are filtered out.
     */
-  private def appendGaugeMetrics(
-      sb: StringBuilder,
-      k: String,
-      v: Gauge[_]
-  ): Unit = {
+  private def groupMetricValues(
+      metrics: Iterator[(String, String, String)]
+  ): ListMap[(String, String), List[String]] = {
+    val sortedMetrics = metrics.toSeq
+      .filter { case (key, _, _) => key != null && key.nonEmpty }
+      .sortBy { case (key, _, _) => key }
+
+    sortedMetrics
+      .foldLeft(ListMap.empty[(String, String), List[String]]) {
+        case (acc, (key, metricType, value)) => {
+          val keyType = (key, metricType)
+          val values = acc.getOrElse(keyType, List[String]())
+          acc + (keyType -> (value :: values))
+        }
+      }
+  }
+
+}
+
+object CustomPrometheusServlet {
+
+  /** Format a Gauge metric to the Prometheus metric string, returns the metric
+    * name and the text formatted value. This can be used to group and format
+    * multiple metrics into a single metric.
+    */
+
+  def formatGauge(k: String, v: Gauge[_]): (String, String, String) = {
     if (v.getValue.isInstanceOf[String]) {
-      return
+      return ("", "", "")
     }
 
     val (key, labels) = parseMetricKey(k)
-    val labelString = serializeLabels(labels + ("type" -> "gauges"))
-
-    sb.append(s"${key}Number$labelString ${v.getValue}\n")
-    sb.append(s"${key}Value$labelString ${v.getValue}\n")
+    val labelString = serializeLabels(labels)
+    (key, "gauge", s"${key}${labelString} ${v.getValue}\n")
   }
 
-  /** Append a Counter metric to the Prometheus metric string
+  /** Format a Timer metric to the Prometheus metric string, returns the metric
+    * name and the text formatted value. This can be used to group and format
+    * multiple metrics into a single metric.
     */
-  private def appendCounterMetric(
-      sb: StringBuilder,
-      k: String,
-      v: Counter
-  ): Unit = {
+
+  def formatCounter(k: String, v: Counter): (String, String, String) = {
     val (key, labels) = parseMetricKey(k)
-
-    val labelString = serializeLabels(labels + ("type" -> "counters"))
-    sb.append(s"${key}Count$labelString ${v.getCount}\n")
+    val labelString = serializeLabels(labels)
+    (key, "counter", s"${key}_total${labelString} ${v.getCount}\n")
   }
 
-  /** Append a Histogram metric to the Prometheus metric string
+  /** Format a Histogram as a Summary metric in the Prometheus metric string,
+    * returns the metric name and the text formatted value. This can be used to
+    * group and format multiple metrics into a single metric.
     */
-  private def appendHistogramMetric(
-      sb: StringBuilder,
+
+  def formatHistogram(
       k: String,
       v: Histogram
-  ): Unit = {
+  ): (String, String, String) = {
     val (key, labels) = parseMetricKey(k)
     val snapshot = v.getSnapshot
-    val labelString = serializeLabels(labels + ("type" -> "histograms"))
-    sb.append(s"${key}Count$labelString ${v.getCount}\n")
-    sb.append(s"${key}Max$labelString ${snapshot.getMax}\n")
-    sb.append(s"${key}Mean$labelString ${snapshot.getMean}\n")
-    sb.append(s"${key}Min$labelString ${snapshot.getMin}\n")
-    sb.append(s"${key}50thPercentile$labelString ${snapshot.getMedian}\n")
-    sb.append(
-      s"${key}75thPercentile$labelString ${snapshot.get75thPercentile}\n"
-    )
-    sb.append(
-      s"${key}95thPercentile$labelString ${snapshot.get95thPercentile}\n"
-    )
-    sb.append(
-      s"${key}98thPercentile$labelString ${snapshot.get98thPercentile}\n"
-    )
-    sb.append(
-      s"${key}99thPercentile$labelString ${snapshot.get99thPercentile}\n"
-    )
-    sb.append(
-      s"${key}999thPercentile$labelString ${snapshot.get999thPercentile}\n"
-    )
-    sb.append(s"${key}StdDev$labelString ${snapshot.getStdDev}\n")
+    val labelString = serializeLabels(labels)
+
+    val sb = new StringBuilder()
+    val sum = snapshot.getValues().sum
+    sb.append(s"${key}_count${labelString} ${v.getCount}\n")
+    sb.append(s"${key}_sum${labelString} ${sum}\n")
+
+    Seq(
+      0.5, 0.75, 0.95, 0.98, 0.99, 0.999
+    ).foreach(q => {
+      val value = snapshot.getValue(q)
+      val quartileLabels = labels + ("quantile" -> s"${q}")
+      val quartileLabelString = serializeLabels(quartileLabels)
+      sb.append(s"${key}${quartileLabelString} ${value}\n")
+    })
+    (key, "summary", sb.toString())
   }
 
-  /** Append a Meter as a counter metric to the Prometheus metrics string.
+  /** Format a Timer metric to the Prometheus metric string, returns the metric
+    * name and the text formatted value. This can be used to group and format
+    * multiple metrics into a single metric.
+    *
+    * Note that we ignore the Meter values in the Timer, because they are not
+    * well supported in Prometheus and can be recovered from the rate function.
     */
-  private def appendMeterMetric(
-      sb: StringBuilder,
-      k: String,
-      v: Meter
-  ): Unit = {
-    val (key, labels) = parseMetricKey(k)
-    val labelString = serializeLabels(labels + ("type" -> "counters"))
-    sb.append(s"${key}Count$labelString ${v.getCount}\n")
-    sb.append(s"${key}MeanRate$labelString ${v.getMeanRate}\n")
-    sb.append(s"${key}OneMinuteRate$labelString ${v.getOneMinuteRate}\n")
-    sb.append(s"${key}FiveMinuteRate$labelString ${v.getFiveMinuteRate}\n")
-    sb.append(
-      s"${key}FifteenMinuteRate$labelString ${v.getFifteenMinuteRate}\n"
-    )
-  }
 
-  /** Append a Timer metric to the Prometheus metric string
-    */
-  private def appendTimerMetric(
-      sb: StringBuilder,
-      k: String,
-      v: Timer
-  ): Unit = {
+  def formatTimer(k: String, v: Timer): (String, String, String) = {
     val (key, labels) = parseMetricKey(k)
     val snapshot = v.getSnapshot
-    val labelString = serializeLabels(labels + ("type" -> "timers"))
-    sb.append(s"${key}Count$labelString ${v.getCount}\n")
-    sb.append(s"${key}Max$labelString ${snapshot.getMax}\n")
-    sb.append(s"${key}Mean$labelString ${snapshot.getMean}\n")
-    sb.append(s"${key}Min$labelString ${snapshot.getMin}\n")
-    sb.append(s"${key}50thPercentile$labelString ${snapshot.getMedian}\n")
-    sb.append(
-      s"${key}75thPercentile$labelString ${snapshot.get75thPercentile}\n"
-    )
-    sb.append(
-      s"${key}95thPercentile$labelString ${snapshot.get95thPercentile}\n"
-    )
-    sb.append(
-      s"${key}98thPercentile$labelString ${snapshot.get98thPercentile}\n"
-    )
-    sb.append(
-      s"${key}99thPercentile$labelString ${snapshot.get99thPercentile}\n"
-    )
-    sb.append(
-      s"${key}999thPercentile$labelString ${snapshot.get999thPercentile}\n"
-    )
-    sb.append(s"${key}StdDev$labelString ${snapshot.getStdDev}\n")
-    sb.append(
-      s"${key}FifteenMinuteRate$labelString ${v.getFifteenMinuteRate}\n"
-    )
-    sb.append(s"${key}FiveMinuteRate$labelString ${v.getFiveMinuteRate}\n")
-    sb.append(s"${key}OneMinuteRate$labelString ${v.getOneMinuteRate}\n")
-    sb.append(s"${key}MeanRate$labelString ${v.getMeanRate}\n")
+    val labelString = serializeLabels(labels)
+
+    val sb = new StringBuilder()
+    val sum = snapshot.getValues().sum
+    sb.append(s"${key}_count${labelString} ${v.getCount}\n")
+    sb.append(s"${key}_sum${labelString} ${sum}\n")
+
+    Seq(
+      0.5, 0.75, 0.95, 0.98, 0.99, 0.999
+    ).foreach(q => {
+      val value = snapshot.getValue(q)
+      val quartileLabels = labels + ("quantile" -> s"${q}")
+      val quartileLabelString = serializeLabels(quartileLabels)
+      sb.append(s"${key}${quartileLabelString} ${value}\n")
+    })
+    (key, "summary", sb.toString())
+  }
+
+  /** Format a Meter metric as a UNTYPED metric with labels for the mean rate
+    * and the 1 minute rate, and 5 minutes rate this is not ideal, but preserves
+    * the information.
+    */
+  def formatMeter(k: String, v: Meter): (String, String, String) = {
+    val (key, labels) = parseMetricKey(k)
+    val labelString = serializeLabels(labels)
+
+    val sb = new StringBuilder()
+    sb.append(s"${key}_count${labelString} ${v.getCount}\n")
+
+    val labelsOneMin = serializeLabels(labels + ("rate" -> "1m"))
+    sb.append(s"${key}_rate${labelsOneMin} ${v.getOneMinuteRate}\n")
+
+    val labelsFiveMin = serializeLabels(labels + ("rate" -> "5m"))
+    sb.append(s"${key}_rate${labelsFiveMin} ${v.getFiveMinuteRate}\n")
+
+    val labelsFifteenMin =
+      serializeLabels(labels + ("rate" -> "15m"))
+    sb.append(s"${key}_rate${labelsFifteenMin} ${v.getFifteenMinuteRate}\n")
+
+    (key, "untyped", sb.toString())
   }
 
   /** normalize a metric name by removing all non-alphanumeric characters
     * replace them with underscores.
     */
-  private def normalizeKey(key: String): String = {
-    s"metrics_${key.replaceAll("[^a-zA-Z0-9]", "_")}_"
+
+  def normalizeKey(key: String): String = {
+    s"metrics_${key.replaceAll("[^a-zA-Z0-9]", "_")}"
   }
 
   /** Serialize a map of labels into a Prometheus label string.
     */
-  private def serializeLabels(labels: Map[String, String]): String = {
+  def serializeLabels(labels: Map[String, String]): String = {
     labels
       .map { case (k, v) => s"""$k="$v"""" }
       .mkString("{", ",", "}")
@@ -226,7 +243,7 @@ class CustomPrometheusServlet(properties: Properties, registry: MetricRegistry)
     *   a tuple containing the key string and a map of the labels
     */
   def parseMetricKey(input: String): (String, Map[String, String]) = {
-    val parts = input.split("LABELS")
+    val parts = input.split(".LABELS.")
     var key = parts(0)
     while (key.endsWith(".")) {
       key = key.dropRight(1)

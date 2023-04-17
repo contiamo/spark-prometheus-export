@@ -10,12 +10,14 @@ To use the implementation in this repository in a spark job, you have to build t
 
 Building the jar can be done via sbt:
 ```bash
+# task build
 sbt 'project prometheusExport' package
 ```
 This will build the code and package it into the the jar file `./target/scala-2.12/prom-servlet_2.12-{VERSION}.jar`.
 
 The created jar can then be used in a spark job. The following snippet starts a pyspark REPL with the jar used to update the prometheus export.
 ```bash
+task docker:build
 docker run --rm -it \
   -v $(pwd)/prometheus-export/target/scala-2.12/prom-servlet_2.12-0.0.1.jar:/opt/spark/jars/prom-servlet_2.12-0.0.1.jar \
   -p 4040:4040 \

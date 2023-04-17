@@ -1,4 +1,5 @@
-val prometheusExport = project.in(file("./prometheus-export"))
+val prometheusExport = project
+  .in(file("./prometheus-export"))
   .settings(
     organization := "contiamo",
     name := "prom-servlet",
@@ -6,5 +7,6 @@ val prometheusExport = project.in(file("./prometheus-export"))
     scalaVersion := "2.12.17",
     libraryDependencies ++= Seq(
       "org.apache.spark" %% "spark-core" % "3.3.2" % "provided",
-    ),
+      "org.scalatest" %% "scalatest" % "3.2.9" % Test
+    )
   )
