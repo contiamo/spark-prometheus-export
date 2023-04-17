@@ -9,7 +9,7 @@ COPY prometheus-export ./prometheus-export
 
 RUN sbt 'project prometheusExport' package
 
-FROM scratch as ditribution
+FROM scratch as distribution
 
 COPY --from=metricsbuilder /project/prometheus-export/target/scala-2.12/*.jar /jars
 
