@@ -105,13 +105,22 @@ object CustomPrometheusServlet {
     */
 
   def formatGauge(k: String, v: Gauge[_]): (String, String, String) = {
-    if (v.getValue.isInstanceOf[String]) {
-      return ("", "", "")
+    val numericValue = v.getValue match {
+      case n: Int    => Some(n.toFloat)
+      case n: Long   => Some(n.toFloat)
+      case n: Float  => Some(n)
+      case n: Double => Some(n.toFloat)
+      case _         => None
     }
 
-    val (key, labels) = parseMetricKey(k)
-    val labelString = serializeLabels(labels)
-    (key, "gauge", s"${key}${labelString} ${v.getValue}\n")
+    numericValue match {
+      case Some(numValue) =>
+        val (key, labels) = parseMetricKey(k)
+        val labelString = serializeLabels(labels)
+        (key, "gauge", s"${key}${labelString} ${numValue}\n")
+      case None =>
+        ("", "", "")
+    }
   }
 
   /** Format a Timer metric to the Prometheus metric string, returns the metric
