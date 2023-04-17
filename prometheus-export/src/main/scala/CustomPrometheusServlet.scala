@@ -77,6 +77,8 @@ class CustomPrometheusServlet(properties: Properties, registry: MetricRegistry)
     * metric name and type to a list of values concatenated together.
     *
     * Any metrics with an empty name are filtered out.
+    *
+    * Metrics are sorted by name.
     */
   private def groupMetricValues(
       metrics: Iterator[(String, String, String)]
@@ -103,7 +105,6 @@ object CustomPrometheusServlet {
     * name and the text formatted value. This can be used to group and format
     * multiple metrics into a single metric.
     */
-
   def formatGauge(k: String, v: Gauge[_]): (String, String, String) = {
     val numericValue = v.getValue match {
       case n: Int    => Some(n.toFloat)
@@ -127,7 +128,6 @@ object CustomPrometheusServlet {
     * name and the text formatted value. This can be used to group and format
     * multiple metrics into a single metric.
     */
-
   def formatCounter(k: String, v: Counter): (String, String, String) = {
     val (key, labels) = parseMetricKey(k)
     val labelString = serializeLabels(labels)
@@ -138,7 +138,6 @@ object CustomPrometheusServlet {
     * returns the metric name and the text formatted value. This can be used to
     * group and format multiple metrics into a single metric.
     */
-
   def formatHistogram(
       k: String,
       v: Histogram
@@ -170,7 +169,6 @@ object CustomPrometheusServlet {
     * Note that we ignore the Meter values in the Timer, because they are not
     * well supported in Prometheus and can be recovered from the rate function.
     */
-
   def formatTimer(k: String, v: Timer): (String, String, String) = {
     val (key, labels) = parseMetricKey(k)
     val snapshot = v.getSnapshot
@@ -219,7 +217,6 @@ object CustomPrometheusServlet {
   /** normalize a metric name by removing all non-alphanumeric characters
     * replace them with underscores.
     */
-
   def normalizeKey(key: String): String = {
     s"metrics_${key.replaceAll("[^a-zA-Z0-9]", "_")}"
   }
