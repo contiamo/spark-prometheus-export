@@ -38,7 +38,7 @@ tasks:
   docker:build:
     desc: build the docker image
     cmds:
-      - docker build --target=distribution -t prometheus-exporter .
+      - docker build --target=distribution -t {{.DOCKER_IMAGE}}-dist:{{.DOCKER_TAG}} .
 
   distribute:
     deps:
