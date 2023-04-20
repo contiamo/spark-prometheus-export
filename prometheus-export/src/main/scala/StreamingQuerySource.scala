@@ -16,6 +16,7 @@ import org.json4s.jackson.JsonMethods._
 import org.apache.spark.sql.streaming.StreamingQueryProgress
 import org.apache.spark.sql.streaming.StreamingQueryListener
 import org.apache.spark.internal.Logging
+import com.codahale.metrics.Gauge
 
 object StreamingQuerySource {
   def metricWithLabels(name: String, labels: Map[String, String]): String = {
@@ -82,8 +83,9 @@ class StreamingQuerySource() extends Source with Logging {
       labels: Map[String, String],
       value: Long
   ): Unit = {
-    val meter = registry.gauge(metricWithLabels(name, labels))
-    meter.asInstanceOf[SettableGauge[Long]].setValue(value)
+    log.trace(s"Reporting gauge $name with labels $labels and value $value")
+    val m = registry.gauge[SettableGauge[Long]](metricWithLabels(name, labels))
+    m.setValue(value)
   }
 
   def reportHistogram(
@@ -91,6 +93,7 @@ class StreamingQuerySource() extends Source with Logging {
       labels: Map[String, String],
       value: Long
   ): Unit = {
+    log.trace(s"Reporting histogram $name with labels $labels and value $value")
     val meter = registry.histogram(metricWithLabels(name, labels))
     meter.update(value)
   }
