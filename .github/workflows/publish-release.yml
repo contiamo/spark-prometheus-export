@@ -1,0 +1,28 @@
+name: publish-tag
+run-name: Add jar to release and publish docker image
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-artifacts:
+    name: Publish jar
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: eu.gcr.io/contiamo-public
+      IMAGE: spark-prometheus-export
+    steps:
+      - name: Check out Repo
+        uses: actions/checkout@v3
+      - name: Build Image
+        run: docker build -t ${DOCKER_REGISTRY}/${IMAGE}:${GITHUB_REF_NAME} .
+      - name: Extract Jars
+        run: |
+          docker image save ${DOCKER_REGISTRY}/${IMAGE}:${GITHUB_REF_NAME} \
+            | tar --extract --wildcards --to-stdout '*/layer.tar' \
+            | tar --extract --wildcards 'jars/*.jar'
+      - name: Add Jars to Release
+        run: |
+          gh release upload $GITHUB_REF jars/*.jar
+  
