@@ -10,16 +10,23 @@ jobs:
     name: Publish jar
     runs-on: ubuntu-latest
     env:
-      DOCKER_REGISTRY: eu.gcr.io/contiamo-public
-      IMAGE: spark-prometheus-export
+      DOCKER_REGISTRY: eu.gcr.io/contiamo-public/spark-prometheus-export
     steps:
       - name: Check out Repo
         uses: actions/checkout@v3
       - name: Build Image
-        run: docker build -t ${DOCKER_REGISTRY}/${IMAGE}:${GITHUB_REF_NAME} .
+        run: docker build -t ${DOCKER_REGISTRY}:${GITHUB_REF_NAME} .
+      - name: Log Into Registry
+        uses: docker/login-action@v1
+        with:
+          username: _json_key
+          password: ${{ secrets.GCR_JSON_KEY }}
+          registry: eu.gcr.io
+      - name: Push Image
+        run: docker push ${DOCKER_REGISTRY}:${GITHUB_REF_NAME}
       - name: Extract Jars
         run: |
-          docker image save ${DOCKER_REGISTRY}/${IMAGE}:${GITHUB_REF_NAME} \
+          docker image save ${DOCKER_REGISTRY}:${GITHUB_REF_NAME} \
             | tar --extract --wildcards --to-stdout '*/layer.tar' \
             | tar --extract --wildcards 'jars/*.jar'
       - name: Add Jars to Release
