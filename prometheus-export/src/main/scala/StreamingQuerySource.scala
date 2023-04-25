@@ -34,7 +34,7 @@ object StreamingQuerySource {
   }
 
   def extractSourceName(value: String): String = {
-    value.split("\\[", -1).head
+    value.split("\\[", 1).head
   }
 
   // An offset object is a json field with a map of topics to a map of partitions to offsets
