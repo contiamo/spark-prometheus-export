@@ -1,0 +1,47 @@
+version: 3
+
+vars:
+  DOCKER_REGISTRY: '{{ default "docker.io" .DOCKER_REGISTRY  }}'
+  DOCKER_IMAGE: '{{ default "prometheus-exporter" .DOCKER_IMAGE }}'
+  DOCKER_TAG: '{{ default "latest" .DOCKER_TAG  }}'
+
+tasks:
+  has_sbt:
+    internal: true
+    silent: true
+    cmds:
+      - |
+        if ! command -v sbt &> /dev/null
+        then
+          echo "sbt could not be found"
+          exit 1
+        fi
+
+  setup:
+    desc: setup the local environment
+    deps:
+      - has_sbt
+    cmds:
+      - sbt 'project prometheusExport' update
+
+  test:
+    desc: test the project
+    cmds:
+      - echo "Testing the project"
+      - sbt 'project prometheusExport' test
+
+  build:
+    desc: build the severlet jar
+    cmds:
+      - sbt 'project prometheusExport' package
+
+  docker:build:
+    desc: build the docker image
+    cmds:
+      - docker build --target=distribution -t {{.DOCKER_IMAGE}}-dist:{{.DOCKER_TAG}} .
+
+  distribute:
+    deps:
+      - docker:build
+    cmds:
+      - sbt 'project prometheusExport' dist

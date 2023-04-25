@@ -9,6 +9,10 @@ COPY prometheus-export ./prometheus-export
 
 RUN sbt 'project prometheusExport' package
 
+FROM scratch as distribution
+
+COPY --from=metricsbuilder /project/prometheus-export/target/scala-2.12/*.jar /jars/
+
 FROM apache/spark-py:v3.3.2
 
 # USE THIS LINE IN YOUR DOCKERFILE
