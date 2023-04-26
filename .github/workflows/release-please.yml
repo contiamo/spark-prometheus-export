@@ -27,3 +27,5 @@ jobs:
               {"type":"docs","section":"Miscellaneous","hidden":false},
               {"type":"refactor","section":"Miscellaneous","hidden":false}
             ]
+          extra-files: |
+            build.sbt
