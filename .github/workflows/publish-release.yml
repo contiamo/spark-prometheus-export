@@ -4,6 +4,9 @@ run-name: Add jar to release and publish docker image
 on:
   release:
     types: [published]
+  push:
+    branches:
+      - feat_github_actions
 
 jobs:
   publish-artifacts:
@@ -31,5 +34,6 @@ jobs:
             | tar --extract --wildcards 'jars/*.jar'
       - name: Add Jars to Release
         run: |
-          gh release upload $GITHUB_REF jars/*.jar
+          # gh release upload $GITHUB_REF jars/*.jar
+          gh release upload /refs/tags/test-release jars/*.jar
   
