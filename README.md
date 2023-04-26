@@ -1,10 +1,28 @@
 # Pyspark Metrics Export
 
-This sbt/scala project provides a minimal template to extending the default prometheus export of spark.
+This sbt/scala project provides an override of the default spark prometheus exporter to support proper naming and labels and a spark stream listener to track progress metrics. Both components can be used with either spark or pyspark.
 
-__NOTE: The custom servlet class extends the package private `PrometheusServlet` class. This should be considered a hack and is fragile. Any changes to the class in Spark might break this solution.__
+__NOTE: The implementation extends private classes in the spark packages. This should be considered a hack and is fragile. Any changes to the class in Spark might break this solution.__
 
-## Using the custom export in a spark job
+## Quick Start
+
+### Docker
+
+The Jar can be extracted from the published docker image. In the docker file for your project add the `eu.gcr.io/contiamo-public/spark-prometheus-export:{VERSION}` image as a stage and copy the Jar file from there.
+
+```
+FROM eu.gcr.io/contiamo-public/spark-prometheus-export:{VERSION} AS exporter-jars
+
+FROM apache/spark-py:latest
+
+COPY --from=exporter-jars /jars/*.jar /opt/spark/jars/
+```
+
+### Jar File
+
+It is possible to use the project's Jar file directly. To do this, download the Jar from the latest [release](https://github.com/contiamo/spark-prometheus-export/releases) and make it available to spark in the class path. This can be done by copying the jar into the `jars` directory of the spark installation.
+
+## Build the Jar
 
 To use the implementation in this repository in a spark job, you have to build the jar, put it into the classpath of your spark job and reference the custom servlet via the `{...}.servlet.class` config option.
 
@@ -28,12 +46,3 @@ docker run --rm -it \
   --conf spark.metrics.conf.*.sink.prometheusServlet.path=/metrics/prometheus
 ```
 With the REPL running the custom metrics will then be reported at `localhost:4040/metrics/prometheus`.
-
-## Embedding into an existing pyspark project
-
-Since the code relies in spark implementation details and should generally be considered unstable, we do not recommend publishing the generated artifact to a package repository. Instead, this repository is stuctured in a way that should make it easy to copy the implementation to your pyspark project.
-
-This requires three additions to your project structure:
-1. Copy the `prometheus-export` directory to your project. The directory contains the sources for the custom servlet.
-2. Add the contents of the [`build.sbt`](./build.sbt) file to your `build.sbt` file. If your project doesn't have a `build.sbt` file, simply copy the one from this repo.
-2. Add the build step in the [`Dockerfile`](./Dockerfile) of this repo to your own `Dockerfile` and make sure to copy the generated jars to your final image.
