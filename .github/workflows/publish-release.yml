@@ -35,7 +35,7 @@ jobs:
       - name: Add Jars to Release
         run: |
           # gh release upload $GITHUB_REF jars/*.jar
-          gh release upload /refs/tags/test-release jars/*.jar
+          gh release upload refs/tags/test-release jars/*.jar
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
