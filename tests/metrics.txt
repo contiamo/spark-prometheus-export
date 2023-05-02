@@ -1,0 +1,705 @@
+# TYPE metrics_driver_BlockManager_disk_diskSpaceUsed_MB gauge
+metrics_driver_BlockManager_disk_diskSpaceUsed_MB{} 0.0
+
+# TYPE metrics_driver_BlockManager_memory_maxMem_MB gauge
+metrics_driver_BlockManager_memory_maxMem_MB{} 2277.0
+
+# TYPE metrics_driver_BlockManager_memory_maxOffHeapMem_MB gauge
+metrics_driver_BlockManager_memory_maxOffHeapMem_MB{} 0.0
+
+# TYPE metrics_driver_BlockManager_memory_maxOnHeapMem_MB gauge
+metrics_driver_BlockManager_memory_maxOnHeapMem_MB{} 2277.0
+
+# TYPE metrics_driver_BlockManager_memory_memUsed_MB gauge
+metrics_driver_BlockManager_memory_memUsed_MB{} 0.0
+
+# TYPE metrics_driver_BlockManager_memory_offHeapMemUsed_MB gauge
+metrics_driver_BlockManager_memory_offHeapMemUsed_MB{} 0.0
+
+# TYPE metrics_driver_BlockManager_memory_onHeapMemUsed_MB gauge
+metrics_driver_BlockManager_memory_onHeapMemUsed_MB{} 0.0
+
+# TYPE metrics_driver_BlockManager_memory_remainingMem_MB gauge
+metrics_driver_BlockManager_memory_remainingMem_MB{} 2277.0
+
+# TYPE metrics_driver_BlockManager_memory_remainingOffHeapMem_MB gauge
+metrics_driver_BlockManager_memory_remainingOffHeapMem_MB{} 0.0
+
+# TYPE metrics_driver_BlockManager_memory_remainingOnHeapMem_MB gauge
+metrics_driver_BlockManager_memory_remainingOnHeapMem_MB{} 2277.0
+
+# TYPE metrics_driver_CodeGenerator_compilationTime summary
+metrics_driver_CodeGenerator_compilationTime_count{} 21
+metrics_driver_CodeGenerator_compilationTime_sum{} 377
+metrics_driver_CodeGenerator_compilationTime{quantile="0.5"} 13.0
+metrics_driver_CodeGenerator_compilationTime{quantile="0.75"} 16.0
+metrics_driver_CodeGenerator_compilationTime{quantile="0.95"} 26.0
+metrics_driver_CodeGenerator_compilationTime{quantile="0.98"} 132.0
+metrics_driver_CodeGenerator_compilationTime{quantile="0.99"} 132.0
+metrics_driver_CodeGenerator_compilationTime{quantile="0.999"} 132.0
+
+# TYPE metrics_driver_CodeGenerator_generatedClassSize summary
+metrics_driver_CodeGenerator_generatedClassSize_count{} 42
+metrics_driver_CodeGenerator_generatedClassSize_sum{} 75451
+metrics_driver_CodeGenerator_generatedClassSize{quantile="0.5"} 691.0
+metrics_driver_CodeGenerator_generatedClassSize{quantile="0.75"} 2587.0
+metrics_driver_CodeGenerator_generatedClassSize{quantile="0.95"} 5012.0
+metrics_driver_CodeGenerator_generatedClassSize{quantile="0.98"} 5417.0
+metrics_driver_CodeGenerator_generatedClassSize{quantile="0.99"} 5417.0
+metrics_driver_CodeGenerator_generatedClassSize{quantile="0.999"} 5417.0
+
+# TYPE metrics_driver_CodeGenerator_generatedMethodSize summary
+metrics_driver_CodeGenerator_generatedMethodSize_count{} 179
+metrics_driver_CodeGenerator_generatedMethodSize_sum{} 13411
+metrics_driver_CodeGenerator_generatedMethodSize{quantile="0.5"} 10.0
+metrics_driver_CodeGenerator_generatedMethodSize{quantile="0.75"} 53.0
+metrics_driver_CodeGenerator_generatedMethodSize{quantile="0.95"} 293.0
+metrics_driver_CodeGenerator_generatedMethodSize{quantile="0.98"} 444.0
+metrics_driver_CodeGenerator_generatedMethodSize{quantile="0.99"} 1526.0
+metrics_driver_CodeGenerator_generatedMethodSize{quantile="0.999"} 1659.0
+
+# TYPE metrics_driver_CodeGenerator_sourceCodeSize summary
+metrics_driver_CodeGenerator_sourceCodeSize_count{} 21
+metrics_driver_CodeGenerator_sourceCodeSize_sum{} 78267
+metrics_driver_CodeGenerator_sourceCodeSize{quantile="0.5"} 2416.0
+metrics_driver_CodeGenerator_sourceCodeSize{quantile="0.75"} 4772.0
+metrics_driver_CodeGenerator_sourceCodeSize{quantile="0.95"} 9704.0
+metrics_driver_CodeGenerator_sourceCodeSize{quantile="0.98"} 11279.0
+metrics_driver_CodeGenerator_sourceCodeSize{quantile="0.99"} 11279.0
+metrics_driver_CodeGenerator_sourceCodeSize{quantile="0.999"} 11279.0
+
+# TYPE metrics_driver_DAGScheduler_job_activeJobs gauge
+metrics_driver_DAGScheduler_job_activeJobs{} 0.0
+
+# TYPE metrics_driver_DAGScheduler_job_allJobs gauge
+metrics_driver_DAGScheduler_job_allJobs{} 7.0
+
+# TYPE metrics_driver_DAGScheduler_messageProcessingTime summary
+metrics_driver_DAGScheduler_messageProcessingTime_count{} 26
+metrics_driver_DAGScheduler_messageProcessingTime_sum{} 456418697
+metrics_driver_DAGScheduler_messageProcessingTime{quantile="0.5"} 2693978.0
+metrics_driver_DAGScheduler_messageProcessingTime{quantile="0.75"} 1.8776027E7
+metrics_driver_DAGScheduler_messageProcessingTime{quantile="0.95"} 4.756432E7
+metrics_driver_DAGScheduler_messageProcessingTime{quantile="0.98"} 2.24038415E8
+metrics_driver_DAGScheduler_messageProcessingTime{quantile="0.99"} 2.24038415E8
+metrics_driver_DAGScheduler_messageProcessingTime{quantile="0.999"} 2.24038415E8
+
+# TYPE metrics_driver_DAGScheduler_stage_failedStages gauge
+metrics_driver_DAGScheduler_stage_failedStages{} 0.0
+
+# TYPE metrics_driver_DAGScheduler_stage_runningStages gauge
+metrics_driver_DAGScheduler_stage_runningStages{} 0.0
+
+# TYPE metrics_driver_DAGScheduler_stage_waitingStages gauge
+metrics_driver_DAGScheduler_stage_waitingStages{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_DirectPoolMemory gauge
+metrics_driver_ExecutorMetrics_DirectPoolMemory{} 296773.0
+
+# TYPE metrics_driver_ExecutorMetrics_JVMHeapMemory gauge
+metrics_driver_ExecutorMetrics_JVMHeapMemory{} 2.14875648E8
+
+# TYPE metrics_driver_ExecutorMetrics_JVMOffHeapMemory gauge
+metrics_driver_ExecutorMetrics_JVMOffHeapMemory{} 2.43200816E8
+
+# TYPE metrics_driver_ExecutorMetrics_MajorGCCount gauge
+metrics_driver_ExecutorMetrics_MajorGCCount{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_MajorGCTime gauge
+metrics_driver_ExecutorMetrics_MajorGCTime{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_MappedPoolMemory gauge
+metrics_driver_ExecutorMetrics_MappedPoolMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_MinorGCCount gauge
+metrics_driver_ExecutorMetrics_MinorGCCount{} 16.0
+
+# TYPE metrics_driver_ExecutorMetrics_MinorGCTime gauge
+metrics_driver_ExecutorMetrics_MinorGCTime{} 144.0
+
+# TYPE metrics_driver_ExecutorMetrics_OffHeapExecutionMemory gauge
+metrics_driver_ExecutorMetrics_OffHeapExecutionMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_OffHeapStorageMemory gauge
+metrics_driver_ExecutorMetrics_OffHeapStorageMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_OffHeapUnifiedMemory gauge
+metrics_driver_ExecutorMetrics_OffHeapUnifiedMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_OnHeapExecutionMemory gauge
+metrics_driver_ExecutorMetrics_OnHeapExecutionMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_OnHeapStorageMemory gauge
+metrics_driver_ExecutorMetrics_OnHeapStorageMemory{} 9224.0
+
+# TYPE metrics_driver_ExecutorMetrics_OnHeapUnifiedMemory gauge
+metrics_driver_ExecutorMetrics_OnHeapUnifiedMemory{} 9224.0
+
+# TYPE metrics_driver_ExecutorMetrics_ProcessTreeJVMRSSMemory gauge
+metrics_driver_ExecutorMetrics_ProcessTreeJVMRSSMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_ProcessTreeJVMVMemory gauge
+metrics_driver_ExecutorMetrics_ProcessTreeJVMVMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_ProcessTreeOtherRSSMemory gauge
+metrics_driver_ExecutorMetrics_ProcessTreeOtherRSSMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_ProcessTreeOtherVMemory gauge
+metrics_driver_ExecutorMetrics_ProcessTreeOtherVMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_ProcessTreePythonRSSMemory gauge
+metrics_driver_ExecutorMetrics_ProcessTreePythonRSSMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_ProcessTreePythonVMemory gauge
+metrics_driver_ExecutorMetrics_ProcessTreePythonVMemory{} 0.0
+
+# TYPE metrics_driver_ExecutorMetrics_TotalGCTime gauge
+metrics_driver_ExecutorMetrics_TotalGCTime{} 144.0
+
+# TYPE metrics_driver_HiveExternalCatalog_fileCacheHits counter
+metrics_driver_HiveExternalCatalog_fileCacheHits_total{} 0
+
+# TYPE metrics_driver_HiveExternalCatalog_filesDiscovered counter
+metrics_driver_HiveExternalCatalog_filesDiscovered_total{} 0
+
+# TYPE metrics_driver_HiveExternalCatalog_hiveClientCalls counter
+metrics_driver_HiveExternalCatalog_hiveClientCalls_total{} 0
+
+# TYPE metrics_driver_HiveExternalCatalog_parallelListingJobCount counter
+metrics_driver_HiveExternalCatalog_parallelListingJobCount_total{} 0
+
+# TYPE metrics_driver_HiveExternalCatalog_partitionsFetched counter
+metrics_driver_HiveExternalCatalog_partitionsFetched_total{} 0
+
+# TYPE metrics_driver_JVMCPU_jvmCpuTime gauge
+metrics_driver_JVMCPU_jvmCpuTime{} 3.11899996E10
+
+# TYPE metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics summary
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics_count{} 110
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics_sum{} 16115475
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics{quantile="0.5"} 5510.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics{quantile="0.75"} 16477.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics{quantile="0.95"} 232908.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics{quantile="0.98"} 570407.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics{quantile="0.99"} 3399724.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_ch_cern_sparkmeasure_FlightRecorderStageMetrics{quantile="0.999"} 9716366.0
+
+# TYPE metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver summary
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver_count{} 110
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver_sum{} 11401950
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver{quantile="0.5"} 5421.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver{quantile="0.75"} 9876.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver{quantile="0.95"} 57996.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver{quantile="0.98"} 235072.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver{quantile="0.99"} 464914.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_HeartbeatReceiver{quantile="0.999"} 9704181.0
+
+# TYPE metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus summary
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus_count{} 60
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus_sum{} 7759427
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus{quantile="0.5"} 3978.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus{quantile="0.75"} 6994.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus{quantile="0.95"} 232212.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus{quantile="0.98"} 395597.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus{quantile="0.99"} 6728446.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_streaming_StreamingQueryListenerBus{quantile="0.999"} 6728446.0
+
+# TYPE metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener summary
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener_count{} 105
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener_sum{} 39367925
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener{quantile="0.5"} 42407.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener{quantile="0.75"} 258990.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener{quantile="0.95"} 1442253.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener{quantile="0.98"} 4248081.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener{quantile="0.99"} 5840084.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_execution_ui_SQLAppStatusListener{quantile="0.999"} 7484040.0
+
+# TYPE metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus summary
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus_count{} 314
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus_sum{} 1920197
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus{quantile="0.5"} 1632.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus{quantile="0.75"} 3035.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus{quantile="0.95"} 6823.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus{quantile="0.98"} 11016.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus{quantile="0.99"} 14191.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_sql_util_ExecutionListenerBus{quantile="0.999"} 1139099.0
+
+# TYPE metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener summary
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener_count{} 110
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener_sum{} 138987203
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener{quantile="0.5"} 185428.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener{quantile="0.75"} 677491.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener{quantile="0.95"} 7770924.0
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener{quantile="0.98"} 1.178486E7
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener{quantile="0.99"} 1.2480993E7
+metrics_driver_LiveListenerBus_listenerProcessingTime_org_apache_spark_status_AppStatusListener{quantile="0.999"} 3.1678632E7
+
+# TYPE metrics_driver_LiveListenerBus_numEventsPosted counter
+metrics_driver_LiveListenerBus_numEventsPosted_total{} 110
+
+# TYPE metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime summary
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime_count{} 110
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime_sum{} 183694664
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime{quantile="0.5"} 326095.0
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime{quantile="0.75"} 1056319.0
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime{quantile="0.95"} 8979917.0
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime{quantile="0.98"} 1.3531339E7
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime{quantile="0.99"} 1.4255575E7
+metrics_driver_LiveListenerBus_queue_appStatus_listenerProcessingTime{quantile="0.999"} 3.58996E7
+
+# TYPE metrics_driver_LiveListenerBus_queue_appStatus_numDroppedEvents counter
+metrics_driver_LiveListenerBus_queue_appStatus_numDroppedEvents_total{} 0
+
+# TYPE metrics_driver_LiveListenerBus_queue_appStatus_size gauge
+metrics_driver_LiveListenerBus_queue_appStatus_size{} 0.0
+
+# TYPE metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime summary
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime_count{} 110
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime_sum{} 16445961
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime{quantile="0.5"} 39598.0
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime{quantile="0.75"} 59822.0
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime{quantile="0.95"} 119739.0
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime{quantile="0.98"} 494392.0
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime{quantile="0.99"} 635944.0
+metrics_driver_LiveListenerBus_queue_executorManagement_listenerProcessingTime{quantile="0.999"} 1.0198184E7
+
+# TYPE metrics_driver_LiveListenerBus_queue_executorManagement_numDroppedEvents counter
+metrics_driver_LiveListenerBus_queue_executorManagement_numDroppedEvents_total{} 0
+
+# TYPE metrics_driver_LiveListenerBus_queue_executorManagement_size gauge
+metrics_driver_LiveListenerBus_queue_executorManagement_size{} 0.0
+
+# TYPE metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime summary
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime_count{} 110
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime_sum{} 24649509
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime{quantile="0.5"} 66187.0
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime{quantile="0.75"} 99092.0
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime{quantile="0.95"} 516871.0
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime{quantile="0.98"} 1230731.0
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime{quantile="0.99"} 3544879.0
+metrics_driver_LiveListenerBus_queue_shared_listenerProcessingTime{quantile="0.999"} 1.0198039E7
+
+# TYPE metrics_driver_LiveListenerBus_queue_shared_numDroppedEvents counter
+metrics_driver_LiveListenerBus_queue_shared_numDroppedEvents_total{} 0
+
+# TYPE metrics_driver_LiveListenerBus_queue_shared_size gauge
+metrics_driver_LiveListenerBus_queue_shared_size{} 0.0
+
+# TYPE metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime summary
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime_count{} 60
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime_sum{} 9182515
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime{quantile="0.5"} 21492.0
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime{quantile="0.75"} 36954.0
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime{quantile="0.95"} 322952.0
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime{quantile="0.98"} 407452.0
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime{quantile="0.99"} 6742151.0
+metrics_driver_LiveListenerBus_queue_streams_listenerProcessingTime{quantile="0.999"} 6742151.0
+
+# TYPE metrics_driver_LiveListenerBus_queue_streams_numDroppedEvents counter
+metrics_driver_LiveListenerBus_queue_streams_numDroppedEvents_total{} 0
+
+# TYPE metrics_driver_LiveListenerBus_queue_streams_size gauge
+metrics_driver_LiveListenerBus_queue_streams_size{} 0.0
+
+# TYPE metrics_driver_StreamingQuerySource_streaming_active_streams gauge
+metrics_driver_StreamingQuerySource_streaming_active_streams{} 1.0
+
+# TYPE metrics_driver_StreamingQuerySource_streaming_batch_duration_ms summary
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader",duration="latestOffset"} 2
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader",duration="latestOffset"} 4621
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="latestOffset",quantile="0.5"} 3.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="latestOffset",quantile="0.75"} 4618.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="latestOffset",quantile="0.95"} 4618.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="latestOffset",quantile="0.98"} 4618.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="latestOffset",quantile="0.99"} 4618.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="latestOffset",quantile="0.999"} 4618.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader",duration="queryPlanning"} 1
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader",duration="queryPlanning"} 91
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="queryPlanning",quantile="0.5"} 91.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="queryPlanning",quantile="0.75"} 91.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="queryPlanning",quantile="0.95"} 91.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="queryPlanning",quantile="0.98"} 91.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="queryPlanning",quantile="0.99"} 91.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="queryPlanning",quantile="0.999"} 91.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader",duration="triggerExecution"} 2
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader",duration="triggerExecution"} 8761
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="triggerExecution",quantile="0.5"} 3.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="triggerExecution",quantile="0.75"} 8758.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="triggerExecution",quantile="0.95"} 8758.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="triggerExecution",quantile="0.98"} 8758.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="triggerExecution",quantile="0.99"} 8758.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="triggerExecution",quantile="0.999"} 8758.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader"} 2
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader"} 8762
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",quantile="0.5"} 3.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",quantile="0.75"} 8759.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",quantile="0.95"} 8759.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",quantile="0.98"} 8759.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",quantile="0.99"} 8759.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",quantile="0.999"} 8759.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader",duration="getBatch"} 1
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader",duration="getBatch"} 48
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="getBatch",quantile="0.5"} 48.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="getBatch",quantile="0.75"} 48.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="getBatch",quantile="0.95"} 48.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="getBatch",quantile="0.98"} 48.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="getBatch",quantile="0.99"} 48.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="getBatch",quantile="0.999"} 48.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader",duration="addBatch"} 1
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader",duration="addBatch"} 3722
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="addBatch",quantile="0.5"} 3722.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="addBatch",quantile="0.75"} 3722.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="addBatch",quantile="0.95"} 3722.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="addBatch",quantile="0.98"} 3722.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="addBatch",quantile="0.99"} 3722.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="addBatch",quantile="0.999"} 3722.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_count{name="loader",duration="walCommit"} 1
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms_sum{name="loader",duration="walCommit"} 97
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="walCommit",quantile="0.5"} 97.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="walCommit",quantile="0.75"} 97.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="walCommit",quantile="0.95"} 97.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="walCommit",quantile="0.98"} 97.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="walCommit",quantile="0.99"} 97.0
+metrics_driver_StreamingQuerySource_streaming_batch_duration_ms{name="loader",duration="walCommit",quantile="0.999"} 97.0
+
+# TYPE metrics_driver_StreamingQuerySource_streaming_batch_num_input_rows gauge
+metrics_driver_StreamingQuerySource_streaming_batch_num_input_rows{name="loader"} 0.0
+
+# TYPE metrics_driver_executor_bytesRead counter
+metrics_driver_executor_bytesRead_total{} 17240
+
+# TYPE metrics_driver_executor_bytesWritten counter
+metrics_driver_executor_bytesWritten_total{} 15498
+
+# TYPE metrics_driver_executor_cpuTime counter
+metrics_driver_executor_cpuTime_total{} 1272963698
+
+# TYPE metrics_driver_executor_deserializeCpuTime counter
+metrics_driver_executor_deserializeCpuTime_total{} 153189028
+
+# TYPE metrics_driver_executor_deserializeTime counter
+metrics_driver_executor_deserializeTime_total{} 170
+
+# TYPE metrics_driver_executor_diskBytesSpilled counter
+metrics_driver_executor_diskBytesSpilled_total{} 0
+
+# TYPE metrics_driver_executor_filesystem_file_largeRead_ops gauge
+metrics_driver_executor_filesystem_file_largeRead_ops{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_file_read_bytes gauge
+metrics_driver_executor_filesystem_file_read_bytes{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_file_read_ops gauge
+metrics_driver_executor_filesystem_file_read_ops{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_file_write_bytes gauge
+metrics_driver_executor_filesystem_file_write_bytes{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_file_write_ops gauge
+metrics_driver_executor_filesystem_file_write_ops{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_hdfs_largeRead_ops gauge
+metrics_driver_executor_filesystem_hdfs_largeRead_ops{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_hdfs_read_bytes gauge
+metrics_driver_executor_filesystem_hdfs_read_bytes{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_hdfs_read_ops gauge
+metrics_driver_executor_filesystem_hdfs_read_ops{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_hdfs_write_bytes gauge
+metrics_driver_executor_filesystem_hdfs_write_bytes{} 0.0
+
+# TYPE metrics_driver_executor_filesystem_hdfs_write_ops gauge
+metrics_driver_executor_filesystem_hdfs_write_ops{} 0.0
+
+# TYPE metrics_driver_executor_jvmGCTime counter
+metrics_driver_executor_jvmGCTime_total{} 21
+
+# TYPE metrics_driver_executor_memoryBytesSpilled counter
+metrics_driver_executor_memoryBytesSpilled_total{} 0
+
+# TYPE metrics_driver_executor_recordsRead counter
+metrics_driver_executor_recordsRead_total{} 6
+
+# TYPE metrics_driver_executor_recordsWritten counter
+metrics_driver_executor_recordsWritten_total{} 3
+
+# TYPE metrics_driver_executor_resultSerializationTime counter
+metrics_driver_executor_resultSerializationTime_total{} 4
+
+# TYPE metrics_driver_executor_resultSize counter
+metrics_driver_executor_resultSize_total{} 0
+
+# TYPE metrics_driver_executor_runTime counter
+metrics_driver_executor_runTime_total{} 2627
+
+# TYPE metrics_driver_executor_shuffleBytesWritten counter
+metrics_driver_executor_shuffleBytesWritten_total{} 230
+
+# TYPE metrics_driver_executor_shuffleFetchWaitTime counter
+metrics_driver_executor_shuffleFetchWaitTime_total{} 0
+
+# TYPE metrics_driver_executor_shuffleLocalBlocksFetched counter
+metrics_driver_executor_shuffleLocalBlocksFetched_total{} 4
+
+# TYPE metrics_driver_executor_shuffleLocalBytesRead counter
+metrics_driver_executor_shuffleLocalBytesRead_total{} 230
+
+# TYPE metrics_driver_executor_shuffleRecordsRead counter
+metrics_driver_executor_shuffleRecordsRead_total{} 4
+
+# TYPE metrics_driver_executor_shuffleRecordsWritten counter
+metrics_driver_executor_shuffleRecordsWritten_total{} 4
+
+# TYPE metrics_driver_executor_shuffleRemoteBlocksFetched counter
+metrics_driver_executor_shuffleRemoteBlocksFetched_total{} 0
+
+# TYPE metrics_driver_executor_shuffleRemoteBytesRead counter
+metrics_driver_executor_shuffleRemoteBytesRead_total{} 0
+
+# TYPE metrics_driver_executor_shuffleRemoteBytesReadToDisk counter
+metrics_driver_executor_shuffleRemoteBytesReadToDisk_total{} 0
+
+# TYPE metrics_driver_executor_shuffleTotalBytesRead counter
+metrics_driver_executor_shuffleTotalBytesRead_total{} 230
+
+# TYPE metrics_driver_executor_shuffleWriteTime counter
+metrics_driver_executor_shuffleWriteTime_total{} 9238297
+
+# TYPE metrics_driver_executor_succeededTasks counter
+metrics_driver_executor_succeededTasks_total{} 9
+
+# TYPE metrics_driver_executor_threadpool_activeTasks gauge
+metrics_driver_executor_threadpool_activeTasks{} 0.0
+
+# TYPE metrics_driver_executor_threadpool_completeTasks gauge
+metrics_driver_executor_threadpool_completeTasks{} 9.0
+
+# TYPE metrics_driver_executor_threadpool_currentPool_size gauge
+metrics_driver_executor_threadpool_currentPool_size{} 1.0
+
+# TYPE metrics_driver_executor_threadpool_maxPool_size gauge
+metrics_driver_executor_threadpool_maxPool_size{} 2.14748365E9
+
+# TYPE metrics_driver_executor_threadpool_startedTasks gauge
+metrics_driver_executor_threadpool_startedTasks{} 9.0
+
+# TYPE metrics_driver_jvm_G1_Old_Generation_count gauge
+metrics_driver_jvm_G1_Old_Generation_count{} 0.0
+
+# TYPE metrics_driver_jvm_G1_Old_Generation_time gauge
+metrics_driver_jvm_G1_Old_Generation_time{} 0.0
+
+# TYPE metrics_driver_jvm_G1_Young_Generation_count gauge
+metrics_driver_jvm_G1_Young_Generation_count{} 16.0
+
+# TYPE metrics_driver_jvm_G1_Young_Generation_time gauge
+metrics_driver_jvm_G1_Young_Generation_time{} 144.0
+
+# TYPE metrics_driver_jvm_direct_capacity gauge
+metrics_driver_jvm_direct_capacity{} 296772.0
+
+# TYPE metrics_driver_jvm_direct_count gauge
+metrics_driver_jvm_direct_count{} 36.0
+
+# TYPE metrics_driver_jvm_direct_used gauge
+metrics_driver_jvm_direct_used{} 296773.0
+
+# TYPE metrics_driver_jvm_heap_committed gauge
+metrics_driver_jvm_heap_committed{} 4.81296384E8
+
+# TYPE metrics_driver_jvm_heap_init gauge
+metrics_driver_jvm_heap_init{} 2.57949696E8
+
+# TYPE metrics_driver_jvm_heap_max gauge
+metrics_driver_jvm_heap_max{} 4.2949673E9
+
+# TYPE metrics_driver_jvm_heap_usage gauge
+metrics_driver_jvm_heap_usage{} 0.050762057
+
+# TYPE metrics_driver_jvm_heap_used gauge
+metrics_driver_jvm_heap_used{} 2.19069952E8
+
+# TYPE metrics_driver_jvm_mapped_capacity gauge
+metrics_driver_jvm_mapped_capacity{} 0.0
+
+# TYPE metrics_driver_jvm_mapped_count gauge
+metrics_driver_jvm_mapped_count{} 0.0
+
+# TYPE metrics_driver_jvm_mapped_used gauge
+metrics_driver_jvm_mapped_used{} 0.0
+
+# TYPE metrics_driver_jvm_non_heap_committed gauge
+metrics_driver_jvm_non_heap_committed{} 2.59260416E8
+
+# TYPE metrics_driver_jvm_non_heap_init gauge
+metrics_driver_jvm_non_heap_init{} 7667712.0
+
+# TYPE metrics_driver_jvm_non_heap_max gauge
+metrics_driver_jvm_non_heap_max{} -1.0
+
+# TYPE metrics_driver_jvm_non_heap_usage gauge
+metrics_driver_jvm_non_heap_usage{} -2.4389824E8
+
+# TYPE metrics_driver_jvm_non_heap_used gauge
+metrics_driver_jvm_non_heap_used{} 2.4381832E8
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_nmethods__committed gauge
+metrics_driver_jvm_pools_CodeHeap__non_nmethods__committed{} 2555904.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_nmethods__init gauge
+metrics_driver_jvm_pools_CodeHeap__non_nmethods__init{} 2555904.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_nmethods__max gauge
+metrics_driver_jvm_pools_CodeHeap__non_nmethods__max{} 5836800.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_nmethods__usage gauge
+metrics_driver_jvm_pools_CodeHeap__non_nmethods__usage{} 0.30721492
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_nmethods__used gauge
+metrics_driver_jvm_pools_CodeHeap__non_nmethods__used{} 1793152.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__committed gauge
+metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__committed{} 6619136.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__init gauge
+metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__init{} 2555904.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__max gauge
+metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__max{} 1.22912768E8
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__usage gauge
+metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__usage{} 0.0537742
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__used gauge
+metrics_driver_jvm_pools_CodeHeap__non_profiled_nmethods__used{} 6611072.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__committed gauge
+metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__committed{} 2.4707072E7
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__init gauge
+metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__init{} 2555904.0
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__max gauge
+metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__max{} 1.22908672E8
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__usage gauge
+metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__usage{} 0.20079273
+
+# TYPE metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__used gauge
+metrics_driver_jvm_pools_CodeHeap__profiled_nmethods__used{} 2.4627328E7
+
+# TYPE metrics_driver_jvm_pools_Compressed_Class_Space_committed gauge
+metrics_driver_jvm_pools_Compressed_Class_Space_committed{} 3.0670848E7
+
+# TYPE metrics_driver_jvm_pools_Compressed_Class_Space_init gauge
+metrics_driver_jvm_pools_Compressed_Class_Space_init{} 0.0
+
+# TYPE metrics_driver_jvm_pools_Compressed_Class_Space_max gauge
+metrics_driver_jvm_pools_Compressed_Class_Space_max{} 1.07374182E9
+
+# TYPE metrics_driver_jvm_pools_Compressed_Class_Space_usage gauge
+metrics_driver_jvm_pools_Compressed_Class_Space_usage{} 0.024152078
+
+# TYPE metrics_driver_jvm_pools_Compressed_Class_Space_used gauge
+metrics_driver_jvm_pools_Compressed_Class_Space_used{} 2.594104E7
+
+# TYPE metrics_driver_jvm_pools_G1_Eden_Space_committed gauge
+metrics_driver_jvm_pools_G1_Eden_Space_committed{} 2.17055232E8
+
+# TYPE metrics_driver_jvm_pools_G1_Eden_Space_init gauge
+metrics_driver_jvm_pools_G1_Eden_Space_init{} 2.7262976E7
+
+# TYPE metrics_driver_jvm_pools_G1_Eden_Space_max gauge
+metrics_driver_jvm_pools_G1_Eden_Space_max{} -1.0
+
+# TYPE metrics_driver_jvm_pools_G1_Eden_Space_usage gauge
+metrics_driver_jvm_pools_G1_Eden_Space_usage{} 0.08695652
+
+# TYPE metrics_driver_jvm_pools_G1_Eden_Space_used gauge
+metrics_driver_jvm_pools_G1_Eden_Space_used{} 1.8874368E7
+
+# TYPE metrics_driver_jvm_pools_G1_Eden_Space_used_after_gc gauge
+metrics_driver_jvm_pools_G1_Eden_Space_used_after_gc{} 0.0
+
+# TYPE metrics_driver_jvm_pools_G1_Old_Gen_committed gauge
+metrics_driver_jvm_pools_G1_Old_Gen_committed{} 2.5165824E8
+
+# TYPE metrics_driver_jvm_pools_G1_Old_Gen_init gauge
+metrics_driver_jvm_pools_G1_Old_Gen_init{} 2.3068672E8
+
+# TYPE metrics_driver_jvm_pools_G1_Old_Gen_max gauge
+metrics_driver_jvm_pools_G1_Old_Gen_max{} 4.2949673E9
+
+# TYPE metrics_driver_jvm_pools_G1_Old_Gen_usage gauge
+metrics_driver_jvm_pools_G1_Old_Gen_usage{} 0.04368198
+
+# TYPE metrics_driver_jvm_pools_G1_Old_Gen_used gauge
+metrics_driver_jvm_pools_G1_Old_Gen_used{} 1.87612672E8
+
+# TYPE metrics_driver_jvm_pools_G1_Old_Gen_used_after_gc gauge
+metrics_driver_jvm_pools_G1_Old_Gen_used_after_gc{} 0.0
+
+# TYPE metrics_driver_jvm_pools_G1_Survivor_Space_committed gauge
+metrics_driver_jvm_pools_G1_Survivor_Space_committed{} 1.2582912E7
+
+# TYPE metrics_driver_jvm_pools_G1_Survivor_Space_init gauge
+metrics_driver_jvm_pools_G1_Survivor_Space_init{} 0.0
+
+# TYPE metrics_driver_jvm_pools_G1_Survivor_Space_max gauge
+metrics_driver_jvm_pools_G1_Survivor_Space_max{} -1.0
+
+# TYPE metrics_driver_jvm_pools_G1_Survivor_Space_usage gauge
+metrics_driver_jvm_pools_G1_Survivor_Space_usage{} 1.0
+
+# TYPE metrics_driver_jvm_pools_G1_Survivor_Space_used gauge
+metrics_driver_jvm_pools_G1_Survivor_Space_used{} 1.2582912E7
+
+# TYPE metrics_driver_jvm_pools_G1_Survivor_Space_used_after_gc gauge
+metrics_driver_jvm_pools_G1_Survivor_Space_used_after_gc{} 1.2582912E7
+
+# TYPE metrics_driver_jvm_pools_Metaspace_committed gauge
+metrics_driver_jvm_pools_Metaspace_committed{} 1.9464192E8
+
+# TYPE metrics_driver_jvm_pools_Metaspace_init gauge
+metrics_driver_jvm_pools_Metaspace_init{} 0.0
+
+# TYPE metrics_driver_jvm_pools_Metaspace_max gauge
+metrics_driver_jvm_pools_Metaspace_max{} -1.0
+
+# TYPE metrics_driver_jvm_pools_Metaspace_usage gauge
+metrics_driver_jvm_pools_Metaspace_usage{} 0.9489172
+
+# TYPE metrics_driver_jvm_pools_Metaspace_used gauge
+metrics_driver_jvm_pools_Metaspace_used{} 1.84722656E8
+
+# TYPE metrics_driver_jvm_total_committed gauge
+metrics_driver_jvm_total_committed{} 7.4062234E8
+
+# TYPE metrics_driver_jvm_total_init gauge
+metrics_driver_jvm_total_init{} 2.65617408E8
+
+# TYPE metrics_driver_jvm_total_max gauge
+metrics_driver_jvm_total_max{} 4.2949673E9
+
+# TYPE metrics_driver_jvm_total_used gauge
+metrics_driver_jvm_total_used{} 4.61713536E8
+
+# TYPE metrics_driver_spark_streaming_loader_eventTime_watermark gauge
+metrics_driver_spark_streaming_loader_eventTime_watermark{} 0.0
+
+# TYPE metrics_driver_spark_streaming_loader_inputRate_total gauge
+metrics_driver_spark_streaming_loader_inputRate_total{} 0.0
+
+# TYPE metrics_driver_spark_streaming_loader_latency gauge
+metrics_driver_spark_streaming_loader_latency{} 3.0
+
+# TYPE metrics_driver_spark_streaming_loader_processingRate_total gauge
+metrics_driver_spark_streaming_loader_processingRate_total{} 0.0
+
+# TYPE metrics_driver_spark_streaming_loader_states_rowsTotal gauge
+metrics_driver_spark_streaming_loader_states_rowsTotal{} 0.0
+
+# TYPE metrics_driver_spark_streaming_loader_states_usedBytes gauge
+metrics_driver_spark_streaming_loader_states_usedBytes{} 0.0
