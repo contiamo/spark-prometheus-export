@@ -86,4 +86,10 @@ class StreamingQuerySourceSpec extends AnyFlatSpec with Matchers {
     val actualOutput = StreamingQuerySource.getOffset(input)
     actualOutput shouldEqual expectedOutput
   }
+  "getOffset" should "return an empty map if the string is empty" in {
+    val input = ""
+    val expectedOutput = Map.empty[String, Map[String, Long]]
+    val actualOutput = StreamingQuerySource.getOffset(input)
+    actualOutput shouldEqual expectedOutput
+  }
 }

@@ -67,8 +67,16 @@ object StreamingQuerySource {
   def getOffset(
       offsetJSON: String
   ): Map[String, Map[String, Long]] = {
-    implicit val formats = DefaultFormats
-    parse(offsetJSON).extract[Map[String, Map[String, Long]]]
+    if (offsetJSON == null || offsetJSON == "") {
+      return Map()
+    }
+
+    offsetJSON.trim.headOption match {
+      case Some('{') if offsetJSON.trim.lastOption.contains('}') =>
+        implicit val formats = DefaultFormats
+        parse(offsetJSON).extract[Map[String, Map[String, Long]]]
+      case _ => Map()
+    }
   }
 
 }
