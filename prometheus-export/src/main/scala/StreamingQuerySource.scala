@@ -33,8 +33,12 @@ object StreamingQuerySource {
     value.split("\\[").last.split("\\]").head
   }
 
+  /**
+    * extract the source name from the description for example
+    * "KafkaV2[Subscribe[mpathic-event]]" becomes "KafkaV2"
+    */
   def extractSourceName(value: String): String = {
-    value.split("\\[", 1).head
+    value.split("\\[").head
   }
 
   // An offset object is a json field with a map of topics to a map of partitions to offsets
