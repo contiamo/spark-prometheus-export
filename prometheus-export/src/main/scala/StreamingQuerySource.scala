@@ -33,8 +33,7 @@ object StreamingQuerySource {
     value.split("\\[").last.split("\\]").head
   }
 
-  /**
-    * extract the source name from the description for example
+  /** extract the source name from the description for example
     * "KafkaV2[Subscribe[mpathic-event]]" becomes "KafkaV2"
     */
   def extractSourceName(value: String): String = {

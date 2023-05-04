@@ -3,7 +3,7 @@ import org.scalatest.matchers.should.Matchers
 import org.apache.spark.metrics.source.StreamingQuerySource
 
 class StreamingQuerySourceSpec extends AnyFlatSpec with Matchers {
-"metricWithLabels" should "return the metric name with labels" in {
+  "metricWithLabels" should "return the metric name with labels" in {
     val name = "my_metric"
     val labels = Map("foo" -> "bar", "baz" -> "qux")
     val expectedOutput = "my_metric.LABELS.foo.bar.baz.qux"

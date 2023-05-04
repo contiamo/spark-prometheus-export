@@ -17,6 +17,11 @@ tasks:
           exit 1
         fi
 
+  fmt:
+    desc: format the code using scalafmt
+    cmds:
+      - sbt 'project prometheusExport' scalafmtAll
+
   setup:
     desc: setup the local environment
     deps:
