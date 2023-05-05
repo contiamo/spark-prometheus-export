@@ -74,7 +74,7 @@ object StreamingQuerySource extends Logging {
       case Some('{') if offsetJSON.trim.lastOption.contains('}') =>
         implicit val formats = DefaultFormats
         parse(offsetJSON).extract[Map[String, Map[String, Long]]]
-      case _ => 
+      case _ =>
         log.trace(s"Streaming offset data is not processable: $offsetJSON")
         Map()
     }
