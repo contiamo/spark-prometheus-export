@@ -11,7 +11,7 @@ class StreamingQuerySourceSpec extends AnyFlatSpec with Matchers {
     actualOutput shouldEqual expectedOutput
   }
 
-  "metricWithLabels" should "return the metric name without labels if the labels map is empty" in {
+  it should "return the metric name without labels if the labels map is empty" in {
     val name = "my_metric"
     val labels = Map.empty[String, String]
     val expectedOutput = "my_metric"
@@ -80,14 +80,21 @@ class StreamingQuerySourceSpec extends AnyFlatSpec with Matchers {
     actualOutput shouldEqual expectedOutput
   }
 
-  "getOffset" should "parse a valid empty JSON into an empty map" in {
+  it should "parse a valid empty JSON into an empty map" in {
     val input = "{}"
     val expectedOutput = Map.empty[String, Map[String, Long]]
     val actualOutput = StreamingQuerySource.getOffset(input)
     actualOutput shouldEqual expectedOutput
   }
-  "getOffset" should "return an empty map if the string is empty" in {
+  it should "return an empty map if the string is empty" in {
     val input = ""
+    val expectedOutput = Map.empty[String, Map[String, Long]]
+    val actualOutput = StreamingQuerySource.getOffset(input)
+    actualOutput shouldEqual expectedOutput
+  }
+
+  it should "return an empty map if the string is not a json object" in {
+    val input = """["some data"]"""
     val expectedOutput = Map.empty[String, Map[String, Long]]
     val actualOutput = StreamingQuerySource.getOffset(input)
     actualOutput shouldEqual expectedOutput

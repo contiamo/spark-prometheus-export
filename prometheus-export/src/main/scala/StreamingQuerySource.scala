@@ -18,7 +18,7 @@ import org.apache.spark.sql.streaming.StreamingQueryListener
 import org.apache.spark.internal.Logging
 import com.codahale.metrics.Gauge
 
-object StreamingQuerySource {
+object StreamingQuerySource extends Logging {
   def metricWithLabels(name: String, labels: Map[String, String]): String = {
     if (labels.isEmpty)
       name
@@ -74,7 +74,9 @@ object StreamingQuerySource {
       case Some('{') if offsetJSON.trim.lastOption.contains('}') =>
         implicit val formats = DefaultFormats
         parse(offsetJSON).extract[Map[String, Map[String, Long]]]
-      case _ => Map()
+      case _ => 
+        log.trace(s"Streaming offset data is not processable: $offsetJSON")
+        Map()
     }
   }
 
