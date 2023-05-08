@@ -18,7 +18,7 @@ import org.apache.spark.sql.streaming.StreamingQueryListener
 import org.apache.spark.internal.Logging
 import com.codahale.metrics.Gauge
 
-object StreamingQuerySource {
+object StreamingQuerySource extends Logging {
   def metricWithLabels(name: String, labels: Map[String, String]): String = {
     if (labels.isEmpty)
       name
@@ -33,8 +33,11 @@ object StreamingQuerySource {
     value.split("\\[").last.split("\\]").head
   }
 
+  /** extract the source name from the description for example
+    * "KafkaV2[Subscribe[mpathic-event]]" becomes "KafkaV2"
+    */
   def extractSourceName(value: String): String = {
-    value.split("\\[", 1).head
+    value.split("\\[").head
   }
 
   // An offset object is a json field with a map of topics to a map of partitions to offsets
@@ -63,8 +66,18 @@ object StreamingQuerySource {
   def getOffset(
       offsetJSON: String
   ): Map[String, Map[String, Long]] = {
-    implicit val formats = DefaultFormats
-    parse(offsetJSON).extract[Map[String, Map[String, Long]]]
+    if (offsetJSON == null || offsetJSON == "") {
+      return Map()
+    }
+
+    offsetJSON.trim.headOption match {
+      case Some('{') if offsetJSON.trim.lastOption.contains('}') =>
+        implicit val formats = DefaultFormats
+        parse(offsetJSON).extract[Map[String, Map[String, Long]]]
+      case _ =>
+        log.trace(s"Streaming offset data is not processable: $offsetJSON")
+        Map()
+    }
   }
 
 }

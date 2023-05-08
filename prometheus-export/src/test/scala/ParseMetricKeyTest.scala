@@ -1,6 +1,9 @@
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import org.apache.spark.metrics.sink.CustomPrometheusServlet.{parseMetricKey, MetricsKey}
+import org.apache.spark.metrics.sink.CustomPrometheusServlet.{
+  parseMetricKey,
+  MetricsKey
+}
 
 class ParseMetricKeySpec extends AnyFlatSpec with Matchers {
 
