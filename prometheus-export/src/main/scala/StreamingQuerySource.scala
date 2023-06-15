@@ -35,8 +35,18 @@ object StreamingQuerySource extends Logging {
 
   /** extract the source name from the description for example
     * "KafkaV2[Subscribe[mpathic-event]]" becomes "KafkaV2"
+    * "org.apache.iceberg.spark.source.SparkMicroBatchStream@32c41681" becomes
+    * "iceberg"
     */
   def extractSourceName(value: String): String = {
+    // if the value starts with org.apache.iceberg.spark.source.SparkMicroBatchStream return iceberg
+    if (
+      value.startsWith("org.apache.iceberg.spark.source.SparkMicroBatchStream")
+    ) {
+      return "IcebergMicroBatchStream"
+    }
+
+    // otherwise split on [ and take the first value
     value.split("\\[").head
   }
 
@@ -80,6 +90,41 @@ object StreamingQuerySource extends Logging {
     }
   }
 
+  // An iceberg structured streaming offset looks like this
+  // {
+  //   "description" : "org.apache.iceberg.spark.source.SparkMicroBatchStream@32c41681",
+  //   "startOffset" : {
+  //     "version" : 1,
+  //     "snapshot_id" : 3202691127021887425,
+  //     "position" : 1,
+  //     "scan_all_files" : false
+  //   },
+  //   "endOffset" : {
+  //     "version" : 1,
+  //     "snapshot_id" : 1926525026331941549,
+  //     "position" : 1,
+  //     "scan_all_files" : false
+  //   },
+  //   "latestOffset" : null,
+  //   "numInputRows" : 15,
+  //   "inputRowsPerSecond" : 0.25,
+  //   "processedRowsPerSecond" : 5.210142410559222
+  // }
+  def icebergOffset(offsetJSON: String): Map[String, Either[Long, Boolean]] = {
+    if (offsetJSON == null || offsetJSON == "") {
+      return Map()
+    }
+
+    offsetJSON.trim.headOption match {
+      case Some('{') if offsetJSON.trim.lastOption.contains('}') =>
+        implicit val formats = DefaultFormats
+        parse(offsetJSON).extract[Map[String, Either[Long, Boolean]]]
+      case _ =>
+        log.trace(s"Streaming offset data is not processable: $offsetJSON")
+        Map()
+    }
+  }
+
 }
 
 class StreamingQuerySource() extends Source with Logging {
@@ -101,6 +146,14 @@ class StreamingQuerySource() extends Source with Logging {
     m.setValue(value)
   }
 
+  def reportGauge(
+      name: String,
+      labels: java.util.HashMap[String, String],
+      value: Long
+  ): Unit = {
+    reportGauge(name, labels.asScala.toMap, value)
+  }
+
   def reportHistogram(
       name: String,
       labels: Map[String, String],
@@ -109,6 +162,14 @@ class StreamingQuerySource() extends Source with Logging {
     log.trace(s"Reporting histogram $name with labels $labels and value $value")
     val meter = registry.histogram(metricWithLabels(name, labels))
     meter.update(value)
+  }
+
+  def reportHistogram(
+      name: String,
+      labels: java.util.HashMap[String, String],
+      value: Long
+  ): Unit = {
+    reportHistogram(name, labels.asScala.toMap, value)
   }
 
   /** Process the progress object and report metrics to the registry
@@ -159,6 +220,7 @@ class StreamingQuerySource() extends Source with Logging {
     }
 
     for (source <- progress.sources) {
+      log.info(s"Reporting metrics for source ${source}")
       val name = extractSourceName(source.description)
       name match {
         case "KafkaV2" => {
@@ -202,6 +264,33 @@ class StreamingQuerySource() extends Source with Logging {
             }
           }
         }
+
+        case "IcebergMicroBatchStream" => {
+          reportHistogram(
+            "streaming.source.iceberg.rows",
+            commonLabels + ("source" -> name),
+            source.numInputRows
+          )
+
+          val latestOffset = icebergOffset(source.endOffset)
+          if (latestOffset.nonEmpty) {
+            reportGauge(
+              s"streaming.source.icberg.partition.offset",
+              commonLabels + ("offset_type" -> "latestOffset"),
+              latestOffset.get("snapshot_id").get.left.get
+            )
+          }
+
+          val startOffset = icebergOffset(source.startOffset)
+          if (startOffset.nonEmpty) {
+            reportGauge(
+              s"streaming.source.icberg.partition.offset",
+              commonLabels + ("offset_type" -> "startOffset"),
+              startOffset.get("snapshot_id").get.left.get
+            )
+          }
+        }
+
         // TODO: support other sources
         case _ => None
       }
@@ -217,7 +306,7 @@ class StreamingQuerySource() extends Source with Logging {
       ): Unit = {
         reportGauge(
           "streaming.active_streams",
-          Map.empty,
+          Map.empty[String, String],
           spark.streams.active.length
         )
       }
@@ -227,7 +316,7 @@ class StreamingQuerySource() extends Source with Logging {
       ): Unit = {
         reportGauge(
           "streaming.active_streams",
-          Map.empty,
+          Map.empty[String, String],
           spark.streams.active.length
         )
       }
