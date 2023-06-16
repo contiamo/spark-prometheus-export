@@ -19,7 +19,7 @@ class StreamingQuerySourceSpec extends AnyFlatSpec with Matchers {
     actualOutput shouldEqual expectedOutput
   }
 
-  "extractSourceName" should "return the Kafkfa source name from a string" in {
+  "extractSourceName" should "return the Kafka source name from a string" in {
     val input = "KafkaV2[Subscribe[mpathic-event]]"
     val expectedOutput = "KafkaV2"
     val actualOutput = StreamingQuerySource.extractSourceName(input)

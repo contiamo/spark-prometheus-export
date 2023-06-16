@@ -43,11 +43,11 @@ object StreamingQuerySource extends Logging {
     if (
       value.startsWith("org.apache.iceberg.spark.source.SparkMicroBatchStream")
     ) {
-      return "IcebergMicroBatchStream"
+      "IcebergMicroBatchStream"
+    } else {
+      // otherwise split on [ and take the first value
+      value.split("\\[").head
     }
-
-    // otherwise split on [ and take the first value
-    value.split("\\[").head
   }
 
   // An offset object is a json field with a map of topics to a map of partitions to offsets
@@ -111,18 +111,18 @@ object StreamingQuerySource extends Logging {
   //   "processedRowsPerSecond" : 5.210142410559222
   // }
   def icebergOffset(offsetJSON: String): Map[String, Either[Long, Boolean]] = {
-    if (offsetJSON == null || offsetJSON == "") {
-      return Map()
-    }
-
-    offsetJSON.trim.headOption match {
-      case Some('{') if offsetJSON.trim.lastOption.contains('}') =>
-        implicit val formats = DefaultFormats
-        parse(offsetJSON).extract[Map[String, Either[Long, Boolean]]]
-      case _ =>
-        log.trace(s"Streaming offset data is not processable: $offsetJSON")
-        Map()
-    }
+    if (offsetJSON != null && offsetJSON.nonEmpty) {
+      val trimmedOffsetJSON = offsetJSON.trim
+      trimmedOffsetJSON.headOption match {
+        case Some('{') if trimmedOffsetJSON.lastOption.contains('}') =>
+          implicit val formats = DefaultFormats
+          parse(offsetJSON).extract[Map[String, Either[Long, Boolean]]]
+        case _ =>
+          log.trace(s"Streaming offset data is not processable: $offsetJSON")
+          Map()
+      }
+    } else {
+      Map()
   }
 
 }
@@ -277,7 +277,7 @@ class StreamingQuerySource() extends Source with Logging {
             reportGauge(
               s"streaming.source.icberg.partition.offset",
               commonLabels + ("offset_type" -> "latestOffset"),
-              latestOffset.get("snapshot_id").get.left.get
+              latestOffset("snapshot_id").left.get
             )
           }
 
@@ -286,7 +286,7 @@ class StreamingQuerySource() extends Source with Logging {
             reportGauge(
               s"streaming.source.icberg.partition.offset",
               commonLabels + ("offset_type" -> "startOffset"),
-              startOffset.get("snapshot_id").get.left.get
+              startOffset("snapshot_id").left.get
             )
           }
         }
