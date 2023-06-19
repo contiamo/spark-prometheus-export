@@ -3,7 +3,7 @@ val prometheusExport = project
   .settings(
     organization := "contiamo",
     name := "prom-servlet",
-    version := "0.2.0", // x-release-please-version
+    version := "0.3.0", // x-release-please-version
     scalaVersion := "2.12.17",
     libraryDependencies ++= Seq(
       "org.apache.spark" %% "spark-core" % "3.3.2" % "provided",
