@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/contiamo/spark-prometheus-export/compare/v0.2.0...v0.3.0) (2023-06-19)
+
+
+### Features
+
+* support iceberg offset parsing ([#9](https://github.com/contiamo/spark-prometheus-export/issues/9)) ([41510fd](https://github.com/contiamo/spark-prometheus-export/commit/41510fd88193c6d82ff159622fab4b1c034e9a7c))
+
 ## [0.2.0](https://github.com/contiamo/spark-prometheus-export/compare/v0.1.1...v0.2.0) (2023-05-08)
 
 
