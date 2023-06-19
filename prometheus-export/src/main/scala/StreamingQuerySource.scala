@@ -123,8 +123,8 @@ object StreamingQuerySource extends Logging {
       }
     } else {
       Map()
+    }
   }
-
 }
 
 class StreamingQuerySource() extends Source with Logging {
